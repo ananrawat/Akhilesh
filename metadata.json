@@ -1,0 +1,5 @@
+{
+  "name": "Online Test Platform",
+  "description": "A web application that provides an online testing environment, including instructions, section-wise questions, a timed test interface, and a detailed results summary. This platform is designed to simulate a real exam experience.",
+  "requestFramePermissions": []
+}
