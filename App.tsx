@@ -1,5 +1,6 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
+import StartScreen from './components/screens/StartScreen';
 import InstructionsScreen from './components/screens/InstructionsScreen';
 import TestSectionsScreen from './components/screens/TestSectionsScreen';
 import QuestionScreen from './components/screens/QuestionScreen';
@@ -8,7 +9,7 @@ import { AppScreen, UserAnswer } from './types';
 import { QUESTIONS, SECTIONS, TEST_DURATION_MINUTES } from './constants';
 
 const App: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState<AppScreen>(AppScreen.Instructions);
+  const [currentScreen, setCurrentScreen] = useState<AppScreen>(AppScreen.Start);
   const [userAnswers, setUserAnswers] = useState<Record<string, number>>({});
   const [startTime, setStartTime] = useState<number | null>(null);
   const [endTime, setEndTime] = useState<number | null>(null);
@@ -26,7 +27,7 @@ const App: React.FC = () => {
   }, []);
 
   const restartTest = useCallback(() => {
-    setCurrentScreen(AppScreen.Instructions);
+    setCurrentScreen(AppScreen.Start);
     setUserAnswers({});
     setStartTime(null);
     setEndTime(null);
@@ -34,6 +35,8 @@ const App: React.FC = () => {
 
   const renderScreen = () => {
     switch (currentScreen) {
+      case AppScreen.Start:
+        return <StartScreen onStart={() => setCurrentScreen(AppScreen.Instructions)} />;
       case AppScreen.Instructions:
         return <InstructionsScreen onNext={() => setCurrentScreen(AppScreen.Sections)} />;
       case AppScreen.Sections:
@@ -58,7 +61,7 @@ const App: React.FC = () => {
           />
         );
       default:
-        return <InstructionsScreen onNext={() => setCurrentScreen(AppScreen.Sections)} />;
+        return <StartScreen onStart={() => setCurrentScreen(AppScreen.Instructions)} />;
     }
   };
 

@@ -1,5 +1,6 @@
 
 export enum AppScreen {
+  Start,
   Instructions,
   Sections,
   Test,
